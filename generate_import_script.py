@@ -140,6 +140,51 @@ cleaned_icu_df['icu_type'] = "'" + cleaned_icu_df['icu_type'].astype(str) + "'"
 
 
 # %%
+#NoteEvents
+raw_noteevents_df = pd.read_csv("csv_tables\\NOTEEVENTS_random.csv")
+
+cleaned_noteevents_df = raw_noteevents_df[["ROW_ID", "HADM_ID", "SUBJECT_ID", "CGID", "CATEGORY", "TEXT", "ISERROR", "CHARTDATE", "CHARTTIME", "STORETIME"]]
+cleaned_noteevents_df['note_timestamp'] = None
+
+noteevents_column_map = {
+    "ROW_ID": "note_id", 
+    "HADM_ID": "admission_id", 
+    "SUBJECT_ID": "patient_id", 
+    "CGID": "author", 
+    "CATEGORY": "note_type", 
+    "TEXT": "note_text", 
+    "ISERROR": "has_error",
+}
+cleaned_noteevents_df.rename(columns=noteevents_column_map, inplace=True)
+
+cleaned_noteevents_df = cleaned_noteevents_df[cleaned_noteevents_df['patient_id'].isin(cleaned_patients_df['patient_id'])]
+cleaned_noteevents_df = cleaned_noteevents_df[cleaned_noteevents_df['admission_id'].isin(cleaned_admissions_df['admission_id'])]
+
+#Iterate over the rows, check the type and assign note_timestamp with either CHARTDATE, CHARTTIME or STORETIME
+#Then, delete CHARTDATE, CHARTTIME and STORETIME
+nan_float = float('nan')
+for index, row in cleaned_noteevents_df.iterrows():
+    chart_time = row['CHARTTIME']
+    chart_date = row['CHARTDATE']
+    if pd.isna(chart_time):
+        cleaned_noteevents_df.at[index, "note_timestamp"] = chart_date
+    else:
+        cleaned_noteevents_df.at[index, "note_timestamp"] = chart_time
+
+cleaned_noteevents_df.drop(['CHARTDATE', 'CHARTTIME', 'STORETIME'], axis=1, inplace=True)
+
+#Double all apostrophes for SQL
+cleaned_noteevents_df['note_text'] = cleaned_noteevents_df['note_text'].str.replace("'", "''")
+
+cleaned_noteevents_df.loc[cleaned_noteevents_df['author'].isna(), 'author'] = "NULL"
+cleaned_noteevents_df.loc[cleaned_noteevents_df['has_error'].isna(), 'has_error'] = "NULL"
+
+
+cleaned_noteevents_df['note_type'] = "'" + cleaned_noteevents_df['note_type'].astype(str) + "'"
+cleaned_noteevents_df['note_text'] = "'" + cleaned_noteevents_df['note_text'].astype(str) + "'"
+cleaned_noteevents_df['note_timestamp'] = "'" + cleaned_noteevents_df['note_timestamp'].astype(str) + "'"
+
+# %%
 def generateInsertStatement(dataframe: pd.DataFrame, table_name: str):
     dataframe_string = f"INSERT INTO {table_name} ("
     columns_list = dataframe.columns.tolist()
@@ -196,8 +241,6 @@ with open("insertvalues.sql", "w") as file:
     file.write(separateInsertStatement(cleaned_icdcodes_df, 'ICDCode') + "\n")
     file.write(separateInsertStatement(cleaned_icu_df, 'ICU') + "\n")
     file.write(separateInsertStatement(cleaned_diagnoses_df, 'Diagnoses') + "\n")
-
-# %%
-raw_diagnoses_df
+    file.write(separateInsertStatement(cleaned_noteevents_df, 'NoteEvents') + "\n")
 
 
