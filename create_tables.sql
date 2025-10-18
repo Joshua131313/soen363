@@ -34,7 +34,7 @@ CREATE TABLE NoteEvents (
     patient_id INT,
     author INT NULL,
     note_type VARCHAR(50),
-    note_text VARCHAR(50),
+    note_text TEXT,
     has_error BIT DEFAULT 0,
     note_timestamp DATETIME NOT NULL
 );
