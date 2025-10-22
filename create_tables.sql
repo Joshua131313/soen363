@@ -16,16 +16,22 @@ CREATE TABLE Admissions (
     insurance VARCHAR(25) NULL,
     marital_status VARCHAR(25) NULL,
     admission_date DATETIME NOT NULL,
-    discharge_date DATETIME NULL
+    admission_location VARCHAR(50),
+    discharge_date DATETIME NULL,
+    discharge_location VARCHAR(50),
+    diagnosis VARCHAR(300)
 );
 -- add foreign key constraint admission_id
 CREATE TABLE ICU (
     icu_id INT PRIMARY KEY,
     admission_id INT NOT NULL,
+    patient_id INT NOT NULL,
     exit_date DATETIME NULL,
     entry_date DATETIME NOT NULL,
-    ward_location INT NOT NULL,
-    icu_type VARCHAR(10)
+    first_careunit VARCHAR(20),
+    last_careunit VARCHAR(20),
+    first_wardid INT NOT NULL,
+    last_wardid INT NOT NULL,
 );
 --  add foreign key constraints for admission_id
 CREATE TABLE NoteEvents (
