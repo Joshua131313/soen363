@@ -24,7 +24,7 @@ cleaned_patients_df['gender'] = "'" + cleaned_patients_df['gender'].astype(str) 
 #Admissions
 raw_admissions_df = pd.read_csv("csv_tables\ADMISSIONS_random.csv")
 
-cleaned_admissions_df = raw_admissions_df[['HADM_ID', 'SUBJECT_ID', 'ADMISSION_TYPE', 'HOSPITAL_EXPIRE_FLAG', 'INSURANCE', 'MARITAL_STATUS', 'ADMITTIME', 'DISCHTIME']]
+cleaned_admissions_df = raw_admissions_df[['HADM_ID', 'SUBJECT_ID', 'ADMISSION_TYPE', 'HOSPITAL_EXPIRE_FLAG', 'INSURANCE', 'MARITAL_STATUS', 'ADMITTIME', 'ADMISSION_LOCATION', 'DISCHTIME', 'DISCHARGE_LOCATION', 'DIAGNOSIS']]
 admission_column_map = {
     'HADM_ID':'admission_id',
     'SUBJECT_ID': 'patient_id',
@@ -33,18 +33,27 @@ admission_column_map = {
     'INSURANCE': 'insurance',
     'MARITAL_STATUS': 'marital_status',
     'ADMITTIME': 'admission_date',
-    'DISCHTIME': 'discharge_date'
+    'ADMISSION_LOCATION': 'admission_location',
+    'DISCHTIME': 'discharge_date',
+    'DISCHARGE_LOCATION': 'discharge_location',
+    'DIAGNOSIS': 'diagnosis'
     }
 cleaned_admissions_df.rename(columns=admission_column_map, inplace=True)
 
 #filter out any entries that have an invalid patient_id
 cleaned_admissions_df = cleaned_admissions_df[cleaned_admissions_df['patient_id'].isin(cleaned_patients_df['patient_id'])] 
 
+#Make all the existing apostrophes doubled so SQL knows it is in the text, not the start of a string
+cleaned_admissions_df['diagnosis'] = cleaned_admissions_df['diagnosis'].str.replace("'", "''")
+
 cleaned_admissions_df['admission_date'] = "'" + cleaned_admissions_df['admission_date'].astype(str) + "'"
 cleaned_admissions_df['reason_of_visit'] = "'" + cleaned_admissions_df['reason_of_visit'].astype(str) + "'"
 cleaned_admissions_df['discharge_date'] = "'" + cleaned_admissions_df['discharge_date'].astype(str) + "'"
 cleaned_admissions_df['insurance'] = "'" + cleaned_admissions_df['insurance'].astype(str) + "'"
 cleaned_admissions_df['marital_status'] = "'" + cleaned_admissions_df['marital_status'].astype(str) + "'"
+cleaned_admissions_df['admission_location'] = "'" + cleaned_admissions_df['admission_location'].astype(str) + "'"
+cleaned_admissions_df['discharge_location'] = "'" + cleaned_admissions_df['discharge_location'].astype(str) + "'"
+cleaned_admissions_df['diagnosis'] = "'" + cleaned_admissions_df['diagnosis'].astype(str) + "'"
 
 
 # %%
@@ -106,28 +115,31 @@ cleaned_diagnoses_df = cleaned_diagnoses_df[cleaned_diagnoses_df['admission_id']
 #ICU
 raw_icu_df = pd.read_csv("csv_tables\ICUSTAYS_random.csv")
 
-cleaned_icu_df = raw_icu_df[['ICUSTAY_ID', 'HADM_ID', 'INTIME', 'OUTTIME', 'LAST_CAREUNIT', 'LAST_WARDID']]
+cleaned_icu_df = raw_icu_df[['ICUSTAY_ID', 'HADM_ID', 'SUBJECT_ID', 'INTIME', 'OUTTIME', 'FIRST_CAREUNIT', 'LAST_CAREUNIT', 'FIRST_WARDID', 'LAST_WARDID']]
 
 icu_column_map = {
     'ICUSTAY_ID' : 'icu_id', 
-    'HADM_ID' : 'admission_id', 
+    'HADM_ID' : 'admission_id',
+    'SUBJECT_ID': 'patient_id',
     'INTIME' : 'entry_date', 
-    'OUTTIME' : 'exit_date', 
-    'LAST_CAREUNIT' : 'icu_type', 
-    'LAST_WARDID' : 'ward_location'
+    'OUTTIME' : 'exit_date',
+    'FIRST_CAREUNIT': 'first_careunit', 
+    'LAST_CAREUNIT' : 'last_careunit',
+    'FIRST_WARDID': 'first_wardid',
+    'LAST_WARDID' : 'last_wardid'
 }
 cleaned_icu_df.rename(columns= icu_column_map, inplace=True)
 
 icu_columns = list(cleaned_icu_df.columns)
 
 exit_date_index = icu_columns.index('exit_date')
-ward_location_index = icu_columns.index('ward_location')
+last_wardid_index = icu_columns.index('last_wardid')
 
 if exit_date_index > 0:
     icu_columns[exit_date_index - 1], icu_columns[exit_date_index] = icu_columns[exit_date_index], icu_columns[exit_date_index - 1]
 
-if ward_location_index > 0:
-    icu_columns[ward_location_index - 1], icu_columns[ward_location_index] = icu_columns[ward_location_index], icu_columns[ward_location_index - 1]
+if last_wardid_index > 0:
+    icu_columns[last_wardid_index - 1], icu_columns[last_wardid_index] = icu_columns[last_wardid_index], icu_columns[last_wardid_index - 1]
 
 cleaned_icu_df = cleaned_icu_df[icu_columns]
 
@@ -136,7 +148,9 @@ cleaned_icu_df = cleaned_icu_df[cleaned_icu_df['admission_id'].isin(cleaned_admi
 
 cleaned_icu_df['entry_date'] = "'" + cleaned_icu_df['entry_date'].astype(str) + "'"
 cleaned_icu_df['exit_date'] = "'" + cleaned_icu_df['exit_date'].astype(str) + "'"
-cleaned_icu_df['icu_type'] = "'" + cleaned_icu_df['icu_type'].astype(str) + "'"
+cleaned_icu_df['first_careunit'] = "'" + cleaned_icu_df['first_careunit'].astype(str) + "'"
+cleaned_icu_df['last_careunit'] = "'" + cleaned_icu_df['last_careunit'].astype(str) + "'"
+
 
 
 # %%
