@@ -1,5 +1,6 @@
 USE HospitalSystem;
-
+--By Kevin Ung
+--ID:49259218
 SELECT DISTINCT p.*
 FROM Patients p
 LEFT JOIN NoteEvents n on n.patient_id=p.patient_id
