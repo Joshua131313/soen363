@@ -1,3 +1,4 @@
+USE HospitalSystem;
 select * from Admissions a
 where exists (select * from ICU i
 left join Diagnoses d

@@ -1,1 +1,2 @@
+USE HospitalSystem;
 select patient_id, date_of_birth, gender from Patients;

@@ -1,3 +1,4 @@
+USE HospitalSystem;
 -- Task 3.10: Show the first 10 discharge summaries recorded in the database
 -- Table: NoteEvents
 -- note_type = 'Discharge summary'
