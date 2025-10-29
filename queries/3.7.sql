@@ -1,3 +1,6 @@
+--By: Joshua Bitton
+--ID: 40273378
+
 USE HospitalSystem;
 
 SELECT p.patient_id, COUNT(i.icu_id) AS ICUStayCount
