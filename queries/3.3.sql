@@ -1,3 +1,6 @@
+--By: Joshua Bitton
+--ID: 40273378
+
 USE HospitalSystem;
 -- SELECT TOP 10 * FROM Patients;
 -- SELECT TOP 10 * FROM Admissions;

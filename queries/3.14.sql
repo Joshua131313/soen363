@@ -1,3 +1,6 @@
+--By: Omar Hammodan
+--ID: 40246598
+
 USE HospitalSystem;
 select * from Admissions a
 where exists (select * from ICU i

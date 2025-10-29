@@ -1,3 +1,6 @@
+--By: Yifu Li
+--ID: 40286100
+
 USE HospitalSystem;
 -- Task 3.16: List patients who had at least one radiology report during admission
 -- Note: Radiology reports are identified by note_type containing 'Radiology'

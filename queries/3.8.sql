@@ -1,3 +1,6 @@
+--By: Yifu Li
+--ID: 40286100
+
 USE HospitalSystem;
 -- Task 3.8: List all patients who were in the ICU
 -- where both the first and last care units are "MICU"
