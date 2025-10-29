@@ -1,3 +1,5 @@
+--By: Liam Daigle
+--ID: 40207583
 USE HospitalSystem;
 
 SELECT d.patient_id, d.icd_code, i.description
