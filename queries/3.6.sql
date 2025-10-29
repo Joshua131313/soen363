@@ -1,3 +1,5 @@
+--By Kevin Ung
+--ID:49259218
 USE HospitalSystem;
 
 SELECT *
