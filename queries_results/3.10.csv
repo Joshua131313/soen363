@@ -1,0 +1,73 @@
+patient_id,admission_id,note_type,note_timestamp,preview_text
+3240,192798,Discharge summary,2100-07-22 00:00:00.000,"Admission Date:  [**2100-7-18**]       Discharge Date:  [**2100-7-22**]
+
+
+Service:  ACOVE
+HISTORY OF PRESENT ILLNESS:  In brief, this is a [**Age over 90 **]-year-old
+woman with a history of cong"
+94564,187397,Discharge summary,2100-10-19 00:00:00.000,"Admission Date:  [**2100-10-12**]              Discharge Date:   [**2100-10-19**]
+
+Date of Birth:  [**2043-1-1**]             Sex:   M
+
+Service: MEDICINE
+
+Allergies:
+Penicillins / Heparin Agent"
+60782,136419,Discharge summary,2100-12-04 00:00:00.000,"Admission Date:  [**2100-11-29**]              Discharge Date:   [**2100-12-4**]
+
+Date of Birth:  [**2028-9-24**]             Sex:   M
+
+Service: CARDIOTHORACIC
+
+Allergies:
+No Known Allergies / "
+27332,129990,Discharge summary,2101-01-22 00:00:00.000,"Admission Date:  [**2101-1-10**]              Discharge Date:   [**2101-1-22**]
+
+Date of Birth:  [**2045-1-10**]             Sex:   M
+
+Service: CARDIOTHORACIC
+
+Allergies:
+Demerol / Shellfish / "
+27332,129990,Discharge summary,2101-01-22 00:00:00.000,"Name:  [**Known lastname **] [**Last Name (LF) 12334**],[**Known firstname 837**]            Unit No:   [**Numeric Identifier 12335**]
+
+Admission Date:  [**2101-1-10**]              Discharge Date: "
+25446,168605,Discharge summary,2101-09-08 00:00:00.000,"Admission Date:  [**2101-9-1**]       Discharge Date:  [**2101-9-8**]
+
+Date of Birth:   [**2049-6-12**]       Sex:  M
+
+Service:  MEDICINE
+
+CHIEF COMPLAINT:  Change in mental status.
+
+HISTORY O"
+25446,168605,Discharge summary,2101-09-08 00:00:00.000,"Admission Date:  [**2101-9-2**]       Discharge Date:  [**2101-9-8**]
+
+Date of Birth:   [**2049-6-12**]       Sex:  M
+
+Service:  GENERAL SURGERY
+
+ADDENDUM TO DISCHARGE SUMMARY OF [**2101-9-7**]:"
+16046,182262,Discharge summary,2101-09-30 00:00:00.000,"Admission Date:  [**2101-9-24**]       Discharge Date:  [**2101-9-30**]
+
+Date of Birth:   [**2063-2-17**]       Sex:  M
+
+Service:  Cardiac Surgery Service
+
+HISTORY OF PRESENT ILLNESS:  The patie"
+78481,143054,Discharge summary,2101-11-01 00:00:00.000,"Admission Date:  [**2101-9-1**]              [**Month/Day/Year **] Date:   [**2101-11-1**]
+
+Date of Birth:  [**2033-8-28**]             Sex:   F
+
+Service: SURGERY
+
+Allergies:
+Codeine / Sulfa (S"
+27312,190068,Discharge summary,2101-12-17 00:00:00.000,"Admission Date:  [**2101-12-2**]              Discharge Date:   [**2101-12-17**]
+
+Date of Birth:  [**2035-9-9**]             Sex:   M
+
+Service: MEDICINE
+
+Allergies:
+Patient recorded as having N"
