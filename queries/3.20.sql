@@ -23,4 +23,5 @@ LEFT JOIN(
     FROM Diagnoses
     GROUP BY patient_id
 ) AS num_d 
-ON num_d.patient_id = p.patient_id;
+ON num_d.patient_id = p.patient_id
+WHERE p.patient_id = 2225; --Arbitrary ID, can remove the WHERE to return list of ALL patients with their num_admissions, icustays and diagnoses
