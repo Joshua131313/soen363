@@ -1,2 +1,4 @@
 csv_tables/NOTEEVENTS_random.csv
+csv_tables/INPUTEVENTS_CV_random.csv
+csv_tables/LABEVENTS_random.csv
 insertvalues.sql
